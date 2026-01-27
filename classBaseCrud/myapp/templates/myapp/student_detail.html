@@ -1,0 +1,18 @@
+{% extends "myapp/base.html" %}
+{% block title %}Student Detail{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+<div class="card">
+    <div class="card-body">
+        <h4>{{ student.name }}</h4>
+        <p><strong>Email:</strong> {{ student.email }}</p>
+        <p><strong>Roll:</strong> {{ student.roll }}</p>
+
+        <a href="{% url 'student_update' student.pk %}" class="btn btn-primary">Edit</a>
+        <a href="{% url 'student_delete' student.pk %}" class="btn btn-danger">Delete</a>
+        <a href="{% url 'student_list' %}" class="btn btn-secondary">Back</a>
+    </div>
+</div>
+</div>
+{% endblock %}
