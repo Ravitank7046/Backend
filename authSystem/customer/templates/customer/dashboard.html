@@ -1,0 +1,49 @@
+{% extends "account/base.html" %} {% block title %}Dashboard{% endblock %} 
+{% block content %}
+<div class="min-h-[70vh] px-4 py-10">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div
+      class="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+    >
+      <div>
+        <h2 class="text-3xl font-semibold text-white">Dashboard</h2>
+        <p class="mt-2 text-gray-400">
+          Welcome back,
+          <span class="text-green-400 font-medium"> {{ user.username }} </span>
+        </p>
+      </div>
+
+      <!-- Change Password Button -->
+      <a
+        {% comment %} href="{% url 'customer:password_change' %}" {% endcomment %}
+        class="inline-flex items-center justify-center bg-pink-600 hover:bg-pink-700 text-white px-5 py-2.5 rounded-lg font-medium transition focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-gray-950"
+      >
+        Change Password
+      </a>
+    </div>
+
+    <!-- Dashboard Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 shadow">
+        <h3 class="text-lg font-medium text-white mb-2">Profile</h3>
+        <p class="text-gray-400 text-sm">
+          View and update your account information
+        </p>
+      </div>
+
+      <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 shadow">
+        <h3 class="text-lg font-medium text-white mb-2">Security</h3>
+        <p class="text-gray-400 text-sm">
+          Change password and manage login settings
+        </p>
+      </div>
+
+      <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 shadow">
+        <h3 class="text-lg font-medium text-white mb-2">Activity</h3>
+        <p class="text-gray-400 text-sm">Review recent account activity</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
