@@ -14,95 +14,105 @@
       {% csrf_token %}
 
       <div>
-        <input
-          type="text"
-          name="name"
-          value="{{ form.name.value|default:'' }}"
-          placeholder="Name"
-          class="w-full p-3 rounded bg-gray-800 border border-gray-700
+        <input type="text" name="name" value="{{ form.name.value|default:'' }}" placeholder="Name" class="w-full p-3 rounded bg-gray-800 border border-gray-700
                  text-gray-100 placeholder-gray-400
-                 focus:outline-none focus:ring-2 focus:ring-green-500"
-        >
+                 focus:outline-none focus:ring-2 focus:ring-green-500">
         {% if form.name.errors %}
-          <div class="text-red-400 text-sm mt-1">
-            {% for error in form.name.errors %}
-              <p>{{ error }}</p>
-            {% endfor %}
-          </div>
+        <div class="text-red-400 text-sm mt-1">
+          {% for error in form.name.errors %}
+          <p>{{ error }}</p>
+          {% endfor %}
+        </div>
         {% endif %}
       </div>
 
       <div>
-        <input
-          type="email"
-          name="email"
-          value="{{ form.email.value|default:'' }}"
-          placeholder="Email"
-          class="w-full p-3 rounded bg-gray-800 border border-gray-700
+        <input type="email" name="email" value="{{ form.email.value|default:'' }}" placeholder="Email" class="w-full p-3 rounded bg-gray-800 border border-gray-700
                  text-gray-100 placeholder-gray-400
-                 focus:outline-none focus:ring-2 focus:ring-green-500"
-        >
+                 focus:outline-none focus:ring-2 focus:ring-green-500">
         {% if form.email.errors %}
-          <div class="text-red-400 text-sm mt-1">
-            {% for error in form.email.errors %}
-              <p>{{ error }}</p>
-            {% endfor %}
-          </div>
+        <div class="text-red-400 text-sm mt-1">
+          {% for error in form.email.errors %}
+          <p>{{ error }}</p>
+          {% endfor %}
+        </div>
         {% endif %}
       </div>
 
       <div>
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          class="w-full p-3 rounded bg-gray-800 border border-gray-700
+        <input type="text" name="city" value="{{ form.city.value|default:'' }}" placeholder="City" class="w-full p-3 rounded bg-gray-800 border border-gray-700
                  text-gray-100 placeholder-gray-400
-                 focus:outline-none focus:ring-2 focus:ring-green-500"
-        >
+                 focus:outline-none focus:ring-2 focus:ring-green-500">
+        {% if form.city.errors %}
+        <div class="text-red-400 text-sm mt-1">
+          {% for error in form.city.errors %}
+          <p>{{ error }}</p>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+
+      <div>
+        <input type="password" name="password" placeholder="Password" class="w-full p-3 rounded bg-gray-800 border border-gray-700
+                 text-gray-100 placeholder-gray-400
+                 focus:outline-none focus:ring-2 focus:ring-green-500">
         {% if form.password.errors %}
-          <div class="text-red-400 text-sm mt-1">
-            {% for error in form.password.errors %}
-              <p>{{ error }}</p>
-            {% endfor %}
-          </div>
+        <div class="text-red-400 text-sm mt-1">
+          {% for error in form.password.errors %}
+          <p>{{ error }}</p>
+          {% endfor %}
+        </div>
         {% endif %}
       </div>
 
       <div>
-        <input
-          type="password"
-          name="confirm_password"
-          placeholder="Confirm Password"
-          class="w-full p-3 rounded bg-gray-800 border border-gray-700
+        <input type="password" name="confirm_password" placeholder="Confirm Password" class="w-full p-3 rounded bg-gray-800 border border-gray-700
                  text-gray-100 placeholder-gray-400
-                 focus:outline-none focus:ring-2 focus:ring-green-500"
-        >
+                 focus:outline-none focus:ring-2 focus:ring-green-500">
         {% if form.confirm_password.errors %}
-          <div class="text-red-400 text-sm mt-1">
-            {% for error in form.confirm_password.errors %}
-              <p>{{ error }}</p>
-            {% endfor %}
-          </div>
+        <div class="text-red-400 text-sm mt-1">
+          {% for error in form.confirm_password.errors %}
+          <p>{{ error }}</p>
+          {% endfor %}
+        </div>
         {% endif %}
       </div>
 
-      <button
-        type="submit"
-        class="w-full bg-green-600 hover:bg-green-700
+      <div>
+        <label class="block text-sm font-medium text-gray-300 mb-2">
+          Account Type
+        </label>
+        <div class="space-y-2">
+          <label
+            class="flex items-center p-3 rounded bg-gray-800 border border-gray-700 cursor-pointer hover:border-gray-600 transition">
+            <input type="radio" name="user_type" value="customer" checked
+              class="mr-3 text-green-600 focus:ring-green-500">
+            <div>
+              <span class="text-white font-medium">Customer</span>
+              <p class="text-gray-400 text-xs">Browse and purchase products</p>
+            </div>
+          </label>
+          <label
+            class="flex items-center p-3 rounded bg-gray-800 border border-gray-700 cursor-pointer hover:border-gray-600 transition">
+            <input type="radio" name="user_type" value="seller" class="mr-3 text-blue-600 focus:ring-blue-500">
+            <div>
+              <span class="text-white font-medium">Seller</span>
+              <p class="text-gray-400 text-xs">Sell products and manage inventory</p>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <button type="submit" class="w-full bg-green-600 hover:bg-green-700
                text-white py-3 rounded-lg font-medium
-               transition duration-200"
-      >
+               transition duration-200">
         Register
       </button>
     </form>
 
     <p class="text-center text-gray-400 mt-6 text-sm">
       Already have an account?
-      <a
-        href="{% url 'login' %}"
-        class="text-green-400 hover:text-green-300 hover:underline transition font-medium"
-      >
+      <a href="{% url 'login' %}" class="text-green-400 hover:text-green-300 hover:underline transition font-medium">
         Login
       </a>
     </p>

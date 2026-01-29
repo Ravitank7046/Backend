@@ -1,9 +1,9 @@
 # customer/urls.py
 from django.urls import path
-from account.views import CustomerDashboardView, CustomerPasswordChangeView
+from customer.views import CustomerDashboardView, CustomerPasswordChangeView
 
 
 urlpatterns = [
-    path('', CustomerDashboardView.as_view(), name="dashboard"),
-    path('password_change/', CustomerPasswordChangeView.as_view(), name="password_change"),
+    path('dashboard/', CustomerDashboardView.as_view(), name="customer_dashboard"),
+    path('password_change/', CustomerPasswordChangeView.as_view(), name="customer_password_change"),
 ]

@@ -121,10 +121,16 @@ STATIC_URL = 'static/'
 # DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'account.User'
 SITE_NAME = "Auth System"
-SITE_DOMAIN = 'http://localhost:8000/' or 'http://127.0.0.1:8000/'
+SITE_DOMAIN = 'http://localhost:8000'
 
 # Email Sending Configration
-EMAIL_HOST = 'live.smtp.mailtrap.io' 
+DEFAULT_FROM_EMAIL = "no-reply@mailtrap.io"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io' 
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 EMAIL_HOST_USER = 'api' 
 EMAIL_HOST_PASSWORD = 'c38bd034e6a350c1972c284d4e32fea0' 
-EMAIL_PORT = '587'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+LOGOUT_REDIRECT_URL = 'login'

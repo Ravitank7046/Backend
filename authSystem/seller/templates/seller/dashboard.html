@@ -1,17 +1,17 @@
 {% extends "account/base.html" %}
-{% block title %}Customer Dashboard{% endblock %}
+{% block title %}Seller Dashboard{% endblock %}
 {% block content %}
 <div class="min-h-[70vh] px-4 py-10">
   <div class="max-w-4xl mx-auto">
     <div class="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
       <div>
-        <h2 class="text-3xl font-semibold text-white">Customer Dashboard</h2>
+        <h2 class="text-3xl font-semibold text-white">Seller Dashboard</h2>
         <p class="mt-2 text-gray-400">
-          Welcome back, <span class="text-green-400 font-medium">{{ user.email }}</span>
+          Welcome back, <span class="text-blue-400 font-medium">{{ user.email }}</span>
         </p>
       </div>
-      <a href="{% url 'customer_password_change' %}"
-        class="inline-flex items-center justify-center bg-pink-600 hover:bg-pink-700 text-white px-5 py-2.5 rounded-lg font-medium transition focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 focus:ring-offset-gray-950">
+      <a href="{% url 'seller_password_change' %}"
+        class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg font-medium transition focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-950">
         Change Password
       </a>
     </div>
@@ -39,30 +39,30 @@
       </div>
     </div>
 
-    <!-- Dashboard Cards -->
+    <!-- Seller Dashboard Cards -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 shadow hover:border-gray-700 transition">
         <div class="flex items-center justify-between mb-3">
-          <h3 class="text-lg font-medium text-white">Account</h3>
-          <span class="text-2xl">👤</span>
+          <h3 class="text-lg font-medium text-white">Products</h3>
+          <span class="text-2xl">📦</span>
         </div>
-        <p class="text-gray-400 text-sm">Manage your account settings and preferences</p>
+        <p class="text-gray-400 text-sm">Manage your product listings and inventory</p>
       </div>
 
       <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 shadow hover:border-gray-700 transition">
         <div class="flex items-center justify-between mb-3">
-          <h3 class="text-lg font-medium text-white">Security</h3>
-          <span class="text-2xl">🔒</span>
+          <h3 class="text-lg font-medium text-white">Orders</h3>
+          <span class="text-2xl">🛒</span>
         </div>
-        <p class="text-gray-400 text-sm">Update password and security settings</p>
+        <p class="text-gray-400 text-sm">View and process customer orders</p>
       </div>
 
       <div class="bg-gray-900 border border-gray-800 rounded-xl p-6 shadow hover:border-gray-700 transition">
         <div class="flex items-center justify-between mb-3">
-          <h3 class="text-lg font-medium text-white">Activity</h3>
-          <span class="text-2xl">📊</span>
+          <h3 class="text-lg font-medium text-white">Analytics</h3>
+          <span class="text-2xl">📈</span>
         </div>
-        <p class="text-gray-400 text-sm">View your recent account activity</p>
+        <p class="text-gray-400 text-sm">Track sales and performance metrics</p>
       </div>
     </div>
   </div>

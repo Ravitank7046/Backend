@@ -4,47 +4,71 @@ from django.views.generic import FormView
 from django.contrib import messages
 from account.forms import RegistrationForm
 from account.models import User
-from django.utils.http import urlsafe_base64_decode,urlsafe_base64_encode
-from django.utils.encoding import force_bytes,force_str
-from django.contrib.auth.tokens import default_token_generator
-from django.conf import settings
-from django.urls import reverse
-from account.utils import send_activation_email
+from django.contrib.auth import authenticate, login
 
 class HomeView(View):
     def get(self,request,*args, **kwargs):
         return render(request,'account/home.html')
 
 class LoginView(View):
-    def get(self,request,*args, **kwargs):
-        return render(request,'account/login.html')
-    
-    def post(self,request,*args, **kwargs):
-        return render(request,'customer/dashboard.html')
-    
+    def get(self, request, *args, **kwargs):
+        # Redirect authenticated users to their dashboard
+        if request.user.is_authenticated:
+            if request.user.is_seller:
+                return redirect('seller_dashboard')
+            elif request.user.is_customer:
+                return redirect('customer_dashboard')
+        return render(request, 'account/login.html')
+    def post(self, request, *args, **kwargs):
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        if not email or not password:
+            messages.error(request, "Both fields are required.")
+            return redirect('login')
+        
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            login(request, user)
+            if user.is_seller:
+                return redirect('seller_dashboard')
+            elif user.is_customer:
+                return redirect('customer_dashboard')
+            else:
+                messages.error(request, "You do not have permission to access this area")
+                return redirect('home')
+        else:
+            messages.error(request, "Invalid email or password")
+            return redirect('login')    
 class RegistrationView(FormView):
     form_class = RegistrationForm
     template_name = 'account/register.html' 
-    def form_valid(self,form):
+    
+    def get(self, request, *args, **kwargs):
+        # Redirect authenticated users to their dashboard
+        if request.user.is_authenticated:
+            if request.user.is_seller:
+                return redirect('seller_dashboard')
+            elif request.user.is_customer:
+                return redirect('customer_dashboard')
+        return super().get(request, *args, **kwargs)
+    
+    def form_valid(self, form):
         user = form.save(commit=False)
         user.set_password(form.cleaned_data['password'])
-        user.is_active = False
+        user.is_active = True  # Activate user immediately - no email verification needed
+        
+        # Set user type based on selection
+        user_type = self.request.POST.get('user_type', 'customer')
+        if user_type == 'seller':
+            user.is_seller = True
+            user.is_customer = False
+        else:
+            user.is_customer = True
+            user.is_seller = False
+        
         user.save()
-        uidb64 = urlsafe_base64_encode(force_bytes(user.pk))
-        token = default_token_generator.make_token(user)
-        activation_link = reverse('activate',kwargs={'uid64':uidb64,'token':token})
-        activation_url = f'{settings.SITE_DOMAIN}{activation_link}'
-        send_activation_email(user.email,activation_url)
-        messages.success(self.request,"Registration Email Send Successfully")
+        messages.success(self.request, "Registration successful! You can now login.")
         return redirect('login')
-
-class CustomPasswordResetView(View):
-    def get(self,request,*args, **kwargs):
-        return render(request,'account/password_reset.html')
-
-class PassowordResetConfirmView(View):
-    def get(self,request,*args, **kwargs):
-        return render(request,'account/password_reset_confirm.html')
 
 class LogoutView(View):
     def get(self,request,*args, **kwargs):
