@@ -4,5 +4,5 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('st/',views.student_api,name="student_api")
+    path('st/',views.StundentApi.as_view(),name="student_api")
 ]
