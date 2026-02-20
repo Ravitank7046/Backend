@@ -3,4 +3,4 @@ from api.models import Student
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-  list_display = ['name','city','aadharNumber','schoolName']
+  list_display = ['id','name','city','aadharNumber','schoolName']

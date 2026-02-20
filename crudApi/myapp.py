@@ -43,4 +43,4 @@ def delete_data(id):
     data = res.json()
     print(data)
 
-delete_data(2)
+delete_data(1)
